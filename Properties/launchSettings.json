@@ -1,10 +1,10 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:43640",
-      "sslPort": 44323
+      "applicationUrl": "http://localhost:34210",
+      "sslPort": 44319
     }
   },
   "profiles": {
@@ -17,6 +17,7 @@
     },
     "demo_web_azure": {
       "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
