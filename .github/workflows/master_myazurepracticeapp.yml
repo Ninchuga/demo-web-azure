@@ -12,13 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.x' # SDK Version to use; x will use the latest version of the 5 channel
-      - run: dotnet build demo-web-azure
+          dotnet-version: '5' # SDK Version to use; x will use the latest version of the 5 channel
 
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v2
