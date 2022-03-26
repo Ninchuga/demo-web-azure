@@ -15,23 +15,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
+      - uses: actions/setup-dotnet@v1
         with:
-          node-version: 'node|10.14'
+          dotnet-version: '5.x' # SDK Version to use; x will use the latest version of the 5 channel
+      - run: dotnet build demo-web-azure
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+      - name: Set up dependency caching for faster builds
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: node-app
-          path: .
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,9 +49,9 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: node-app
+          name: .net-app
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
