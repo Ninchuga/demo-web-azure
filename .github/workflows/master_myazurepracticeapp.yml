@@ -57,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'myazurepracticeapp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9FD631D1E7D44DA8BDD4377B1877BD01 }}
+          app-name: 'myazurepracticewebapp'
+          slot-name: 'myazurepracticewebapp-dev'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ca85e735df6e46b7a19a680f7e0148d0  }}
           package: .
