@@ -27,12 +27,11 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ./DemoWebApplication
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release ./DemoWebApplication -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -53,11 +52,11 @@ jobs:
         with:
           name: .net-app
 
-      - name: 'Deploy to Azure Web App'
+      - name: 'Deploy to Azure Web App (Dev)'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'myazurepracticeapp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9FD631D1E7D44DA8BDD4377B1877BD01 }}
+          app-name: 'myazurepracticewebapp'
+          slot-name: 'dev'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_45A17727F6574BDDAA188D510DAA9285 }}
           package: .
