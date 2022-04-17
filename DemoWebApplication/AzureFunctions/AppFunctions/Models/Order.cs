@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
-
-namespace AppFunctions.Models
+﻿namespace AppFunctions.Models
 {
     public class Order
     {
